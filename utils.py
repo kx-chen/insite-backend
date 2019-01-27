@@ -19,5 +19,16 @@ def summarize_from_text(text_for_processing):
 
     return summary_string
 
+
 def url_encode(url):
     return requests.utils.quote(url, safe='')
+
+
+def extract_text_from_url(url):
+    diffbot_api_key = os.environ.get('DIFFBOT_API_KEY')
+    text_json = requests.get(f"https://api.diffbot.com/v3/article?token={diffbot_api_key}&url=https%3A%2F%2Fwww.cbc.ca%2Fnews%2Fworld%2Flouisiana-shooting-1.4994503")
+    # print(text_json.json())
+    print(text_json.json()['objects'][0]['text'])
+
+
+extract_text_from_url('https://www.ctvnews.ca/politics/scheer-slams-trudeau-after-mccallum-fired-1.4270477')
