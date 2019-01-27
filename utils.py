@@ -12,6 +12,7 @@ def summarize_from_text(text_for_processing):
     json_res = r.json()
 
     summary_string = ""
+    print(json_res)
     for summary in json_res[0]['summary']:
         summary_string += summary['sentence']
 
