@@ -18,3 +18,6 @@ def summarize_from_text(text_for_processing):
         summary_string += summary['sentence']
 
     return summary_string
+
+def url_encode(url):
+    return requests.utils.quote(url, safe='')
