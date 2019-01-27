@@ -3,13 +3,13 @@ import traceback
 from flask import Flask, jsonify, request
 
 from utils import summarize_from_text, extract_text_from_url
-
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def index():
     return '<h1> hi </h1>'
-
 
 @app.route('/summarize', methods=['GET', 'POST'])
 def summarize():
