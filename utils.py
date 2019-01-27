@@ -28,3 +28,20 @@ def extract_text_from_url(url):
     url = url_encode(url)
     text_json = requests.get(f"https://api.diffbot.com/v3/article?token={diffbot_api_key}&url={url}")
     return text_json.json()['objects'][0]['text']
+
+
+def check_fake(url):
+    api_key = os.environ.get('SUMMARIZE_API_KEY')
+    r = requests.get(f"https://www.summarizebot.com/api/checkfake"
+                     f"?apiKey={api_key}&url={url}")
+    confidence_counter = {"confidence": 0}
+    for i in r.json()['predictions']:
+        if i['confidence'] > confidence_counter['confidence']:
+            confidence_counter = i
+
+    return confidence_counter
+
+
+print(check_fake("https://bizstandardnews.com/2019/01/13/taylor-fbi-trump-investigation-motivated-by-contract-wizards/"))
+
+
