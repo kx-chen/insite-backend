@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 
-from utils import summarize_from_text
+from utils import summarize_from_text, extract_text_from_url
 
 app = Flask(__name__)
 
@@ -12,7 +12,8 @@ def index():
 @app.route('/summarize', methods=['GET', 'POST'])
 def summarize():
     url_to_summarize = request.args.get('url')
-    summary = summarize_from_text(url_to_summarize)
+    page_text = extract_text_from_url(url_to_summarize)
+    summary = summarize_from_text(page_text)
 
     return jsonify({
         "summary": summary
