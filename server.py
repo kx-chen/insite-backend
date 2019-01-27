@@ -12,8 +12,12 @@ def index():
 @app.route('/summarize', methods=['GET', 'POST'])
 def summarize():
     url_to_summarize = request.args.get('url')
-    page_text = extract_text_from_url(url_to_summarize)
-    summary = summarize_from_text(page_text)
+    try:
+        page_text = extract_text_from_url(url_to_summarize)
+        summary = summarize_from_text(page_text)
+    except:
+        summary = ("There was an error processing the request, "
+                   "please try a different article.")
 
     return jsonify({
         "summary": summary
